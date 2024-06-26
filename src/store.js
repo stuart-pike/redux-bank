@@ -1,18 +1,15 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { thunk } from "redux-thunk";
+// configStore wraps createStore and adds functionality.
+// automatically combine reducers, Thunk middleware, and set up dev tools
+import { configureStore } from "@reduxjs/toolkit";
+
 import accountReducer from "./features/accounts/accountSlice";
 import customerReducer from "./features/customers/customerSlice";
-import { composeWithDevTools } from "@redux-devtools/extension";
 
-//combine reducers
-const rootReducer = combineReducers({
-  account: accountReducer,
-  customer: customerReducer,
+const store = configureStore({
+  reducer: {
+    account: accountReducer,
+    customer: customerReducer,
+  },
 });
-
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-);
 
 export default store;
